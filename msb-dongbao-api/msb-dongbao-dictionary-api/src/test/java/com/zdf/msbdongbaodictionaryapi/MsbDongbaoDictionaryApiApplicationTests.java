@@ -1,0 +1,13 @@
+package com.zdf.msbdongbaodictionaryapi;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MsbDongbaoDictionaryApiApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
