@@ -3,6 +3,7 @@ package com.zdf.msbdongbaoums.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zdf.msbdongbaoums.mapper.UmsMemberMapper;
 import com.zdf.msbdongbaoumsapi.entity.UmsMember;
+import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberLogInRequestDto;
 import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberRegisterRequestDto;
 import com.zdf.msbdongbaoumsapi.service.IUmsMemberService;
 import org.springframework.beans.BeanUtils;
@@ -46,5 +47,21 @@ public class UmsMemberServiceImpl implements IUmsMemberService
         objectQueryWrapper.eq("username", name);
 
         return umsMemberMapper.selectCount(objectQueryWrapper);
+    }
+
+    @Override
+    public String logIn(UmsMeberLogInRequestDto umsMeberLogInRequestDto)
+    {
+        String password = umsMeberLogInRequestDto.getPassword();
+        QueryWrapper<UmsMember> umsMemberQueryWrapper = new QueryWrapper<>();
+
+        umsMemberQueryWrapper.eq("username", umsMeberLogInRequestDto.getUsername());
+        UmsMember umsMember = umsMemberMapper.selectOne(umsMemberQueryWrapper);
+
+        if (null != umsMember)
+        {
+            return passwordEncoder.matches(password, umsMember.getPassword()) ?"ok":"error";
+        }
+        return "error";
     }
 }
