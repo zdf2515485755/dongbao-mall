@@ -1,4 +1,4 @@
-package com.zdf.msbdongbaoums.entity;
+package com.zdf.msbdongbaoumsapi.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

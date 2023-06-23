@@ -1,6 +1,6 @@
 package com.zdf.msbdongbaoums.mapper;
 
-import com.zdf.msbdongbaoums.entity.UmsMember;
+import com.zdf.msbdongbaoumsapi.entity.UmsMember;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
 package com.zdf.msbdongbaoums.mapper;
 
-import com.zdf.msbdongbaoums.entity.UmsMember;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zdf.msbdongbaoumsapi.entity.UmsMember;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
  * @since 2023-06-23
  */
 @Repository
-public interface UmsMemberMapper extends BaseMapper<UmsMember> {
+public interface UmsMemberMapper extends BaseMapper<UmsMember>
+{
 
 }

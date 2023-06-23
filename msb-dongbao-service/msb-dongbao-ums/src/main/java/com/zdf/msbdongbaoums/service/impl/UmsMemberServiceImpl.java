@@ -1,10 +1,15 @@
 package com.zdf.msbdongbaoums.service.impl;
 
-import com.zdf.msbdongbaoums.entity.UmsMember;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.zdf.msbdongbaoums.mapper.UmsMemberMapper;
-import com.zdf.msbdongbaoums.service.IUmsMemberService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zdf.msbdongbaoumsapi.entity.UmsMember;
+import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberRegisterRequestDto;
+import com.zdf.msbdongbaoumsapi.service.IUmsMemberService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * <p>
@@ -15,6 +20,31 @@ import org.springframework.stereotype.Service;
  * @since 2023-06-23
  */
 @Service
-public class UmsMemberServiceImpl extends ServiceImpl<UmsMemberMapper, UmsMember> implements IUmsMemberService {
+public class UmsMemberServiceImpl implements IUmsMemberService
+{
+    @Autowired
+    private UmsMemberMapper umsMemberMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public String register(UmsMeberRegisterRequestDto umsMeberRegisterRequestDto)
+    {
+        UmsMember umsMember = new UmsMember();
+        BeanUtils.copyProperties(umsMeberRegisterRequestDto, umsMember);
+
+        String encode = passwordEncoder.encode(umsMember.getPassword());
+        umsMember.setPassword(encode);
+
+        return umsMemberMapper.insert(umsMember) > 0 ? "ok" : "error";
+    }
+
+    public Integer selectCountByName(@PathVariable("name") String name)
+    {
+        QueryWrapper<UmsMember> objectQueryWrapper = new QueryWrapper<>();
+        objectQueryWrapper.eq("username", name);
+
+        return umsMemberMapper.selectCount(objectQueryWrapper);
+    }
 }
