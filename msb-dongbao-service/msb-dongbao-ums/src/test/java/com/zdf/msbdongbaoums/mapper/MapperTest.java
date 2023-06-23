@@ -1,26 +1,29 @@
-package com.zdf.msbdongbaoums;
+package com.zdf.msbdongbaoums.mapper;
 
 import com.zdf.msbdongbaoums.entity.UmsMember;
-import com.zdf.msbdongbaoums.mapper.UmsMemberMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsbDongbaoUmsApplicationTests {
-
+public class MapperTest
+{
     @Autowired
     UmsMemberMapper umsMemberMapper;
 
     @Test
-    void contextLoads()
+    void testInsert()
     {
-
         UmsMember umsMember = new UmsMember();
+        umsMember.setEmail("aaa");
         umsMember.setUsername("zdf");
-        umsMember.setEmail("www.baidu.com");
-        umsMemberMapper.insert(umsMember);
 
+        umsMemberMapper.insert(umsMember);
     }
 
+    @Test
+    void testUpdate()
+    {
+
+    }
 }
