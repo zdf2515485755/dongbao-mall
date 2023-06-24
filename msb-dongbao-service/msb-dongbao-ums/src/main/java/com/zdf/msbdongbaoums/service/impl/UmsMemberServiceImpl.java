@@ -1,6 +1,7 @@
 package com.zdf.msbdongbaoums.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.zdf.msbdongbaocommonbase.result.ResponseResult;
 import com.zdf.msbdongbaoums.mapper.UmsMemberMapper;
 import com.zdf.msbdongbaoumsapi.entity.UmsMember;
 import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberLogInRequestDto;
@@ -30,7 +31,7 @@ public class UmsMemberServiceImpl implements IUmsMemberService
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public String register(UmsMeberRegisterRequestDto umsMeberRegisterRequestDto)
+    public ResponseResult register(UmsMeberRegisterRequestDto umsMeberRegisterRequestDto)
     {
         UmsMember umsMember = new UmsMember();
         BeanUtils.copyProperties(umsMeberRegisterRequestDto, umsMember);
@@ -38,19 +39,21 @@ public class UmsMemberServiceImpl implements IUmsMemberService
         String encode = passwordEncoder.encode(umsMember.getPassword());
         umsMember.setPassword(encode);
 
-        return umsMemberMapper.insert(umsMember) > 0 ? "ok" : "error";
+        return umsMemberMapper.insert(umsMember) > 0 ? ResponseResult.success("") : ResponseResult.fail();
     }
 
-    public Integer selectCountByName(@PathVariable("name") String name)
+    public ResponseResult<Integer> selectCountByName(@PathVariable("name") String name)
     {
         QueryWrapper<UmsMember> objectQueryWrapper = new QueryWrapper<>();
         objectQueryWrapper.eq("username", name);
 
-        return umsMemberMapper.selectCount(objectQueryWrapper);
+        Integer count = umsMemberMapper.selectCount(objectQueryWrapper);
+
+        return ResponseResult.success(count);
     }
 
     @Override
-    public String logIn(UmsMeberLogInRequestDto umsMeberLogInRequestDto)
+    public ResponseResult logIn(UmsMeberLogInRequestDto umsMeberLogInRequestDto)
     {
         String password = umsMeberLogInRequestDto.getPassword();
         QueryWrapper<UmsMember> umsMemberQueryWrapper = new QueryWrapper<>();
@@ -60,8 +63,8 @@ public class UmsMemberServiceImpl implements IUmsMemberService
 
         if (null != umsMember)
         {
-            return passwordEncoder.matches(password, umsMember.getPassword()) ?"ok":"error";
+            return passwordEncoder.matches(password, umsMember.getPassword()) ? ResponseResult.success("") : ResponseResult.fail();
         }
-        return "error";
+        return ResponseResult.fail();
     }
 }

@@ -1,11 +1,14 @@
 package com.zdf.msbdongbaoportalweb.controller;
 
 
+import com.zdf.msbdongbaocommonbase.result.ResponseResult;
 import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberLogInRequestDto;
 import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberRegisterRequestDto;
 import com.zdf.msbdongbaoumsapi.service.IUmsMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -24,20 +27,20 @@ public class UmsMemberController
 
     //注册用户
     @PostMapping("/register")
-    public String register(@RequestBody UmsMeberRegisterRequestDto umsMeberRegisterRequestDto)
+    public ResponseResult register(@RequestBody @Valid UmsMeberRegisterRequestDto umsMeberRegisterRequestDto)
     {
         return iUmsMemberService.register(umsMeberRegisterRequestDto);
     }
 
     //根据用户名查询记录数量
     @PostMapping("/count/{name}")
-    public Integer selectCountByName(@PathVariable("name") String name)
+    public ResponseResult<Integer> selectCountByName(@PathVariable("name")@Valid String name)
     {
         return iUmsMemberService.selectCountByName(name);
     }
 
     @PostMapping("/login")
-    public String logIn(@RequestBody UmsMeberLogInRequestDto umsMeberLogInRequestDto)
+    public ResponseResult<String> logIn(@RequestBody @Valid UmsMeberLogInRequestDto umsMeberLogInRequestDto)
     {
         return iUmsMemberService.logIn(umsMeberLogInRequestDto);
     }

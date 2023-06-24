@@ -1,5 +1,6 @@
 package com.zdf.msbdongbaoumsapi.service;
 
+import com.zdf.msbdongbaocommonbase.result.ResponseResult;
 import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberLogInRequestDto;
 import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberRegisterRequestDto;
 
@@ -13,9 +14,9 @@ import com.zdf.msbdongbaoumsapi.entity.dto.UmsMeberRegisterRequestDto;
  */
 public interface IUmsMemberService
 {
-    public String register(UmsMeberRegisterRequestDto umsMeberRegisterRequestDto);
+    public ResponseResult register(UmsMeberRegisterRequestDto umsMeberRegisterRequestDto);
 
-    public Integer selectCountByName(String name);
+    public ResponseResult<Integer> selectCountByName(String name);
 
-    public String logIn(UmsMeberLogInRequestDto umsMeberLogInRequestDto);
+    public ResponseResult logIn(UmsMeberLogInRequestDto umsMeberLogInRequestDto);
 }

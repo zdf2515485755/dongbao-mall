@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -24,12 +26,14 @@ public class UmsMember implements Serializable {
 
     private Long id;
 
+    @Size(min = 1, max = 8, message = "用户名长度必须在1到8之间")
     private String username;
 
     private String password;
 
     private String icon;
 
+    @Email
     private String email;
 
     private String nickName;
